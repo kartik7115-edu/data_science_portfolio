@@ -1,3 +1,6 @@
+# Fully Updated Advanced Streamlit Portfolio Code
+
+```python
 import streamlit as st
 from streamlit_option_menu import option_menu
 
@@ -13,6 +16,13 @@ st.set_page_config(
     page_icon="📊",
     layout="wide"
 )
+
+# ---------------------------------------------------
+# SESSION STATE
+# ---------------------------------------------------
+
+if "page" not in st.session_state:
+    st.session_state.page = "Home"
 
 # ---------------------------------------------------
 # CUSTOM CSS
@@ -83,7 +93,11 @@ h1, h2, h3, h4, h5 {
     margin-top: 0px;
 }
 
-/* GLASS CARDS */
+/* CLICKABLE METRIC CARDS */
+
+.metric-link {
+    text-decoration: none !important;
+}
 
 .metric-card {
 
@@ -101,18 +115,31 @@ h1, h2, h3, h4, h5 {
         0 8px 32px rgba(0,0,0,0.35);
 
     transition: all 0.35s ease;
-}
 
-/* CARD HOVER */
+    cursor: pointer;
+
+    text-align: center;
+}
 
 .metric-card:hover {
 
-    transform: translateY(-6px);
+    transform: translateY(-8px) scale(1.02);
 
-    border: 1px solid rgba(56,189,248,0.35);
+    border: 1px solid rgba(56,189,248,0.5);
 
     box-shadow:
+        0 0 25px rgba(56,189,248,0.35),
         0 12px 35px rgba(56,189,248,0.18);
+}
+
+.metric-card h1 {
+    color: white;
+    margin-bottom: 5px;
+}
+
+.metric-card p {
+    color: #CBD5E1;
+    font-size: 18px;
 }
 
 /* PROJECT CARDS */
@@ -141,6 +168,7 @@ h1, h2, h3, h4, h5 {
     border: 1px solid rgba(124,58,237,0.4);
 
     box-shadow:
+        0 0 30px rgba(124,58,237,0.28),
         0 10px 35px rgba(124,58,237,0.18);
 }
 
@@ -181,39 +209,7 @@ div.stDownloadButton > button:hover {
         0 8px 25px rgba(59,130,246,0.4);
 }
 
-/* LINKS */
-
-a {
-    text-decoration: none !important;
-}
-
-/* SCROLLBAR */
-
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #374151;
-    border-radius: 10px;
-}
-
-/* WELCOME CONTAINER */
-
-.welcome-box {
-
-    padding: 22px;
-
-    border-radius: 24px;
-
-    background: rgba(255,255,255,0.04);
-
-    border: 1px solid rgba(255,255,255,0.08);
-
-    margin-bottom: 25px;
-
-    backdrop-filter: blur(12px);
-}
+/* LINK BUTTONS */
 
 div[data-testid="stLinkButton"] a {
     width: 100%;
@@ -248,6 +244,41 @@ div[data-testid="stLinkButton"] a:hover {
 
     box-shadow:
         0 8px 25px rgba(59,130,246,0.4);
+}
+
+/* FILTER BOX */
+
+.stSelectbox > div > div {
+    background-color: rgba(255,255,255,0.05);
+    color: white;
+}
+
+/* WELCOME BOX */
+
+.welcome-box {
+
+    padding: 22px;
+
+    border-radius: 24px;
+
+    background: rgba(255,255,255,0.04);
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    margin-bottom: 25px;
+
+    backdrop-filter: blur(12px);
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #374151;
+    border-radius: 10px;
 }
 
 </style>
@@ -285,8 +316,6 @@ with st.sidebar:
 
 if selected == "Home":
 
-    # WELCOME BOX
-
     st.markdown("""
     <div class="welcome-box">
 
@@ -306,16 +335,12 @@ if selected == "Home":
 
     col1, col2 = st.columns([1, 2])
 
-    # LEFT SIDE
-
     with col1:
 
         st.image(
             "assets/Kartik_Profile.jpg",
             width=300
         )
-
-    # RIGHT SIDE
 
     with col2:
 
@@ -344,8 +369,6 @@ if selected == "Home":
 
         col_btn1, col_btn2, col_btn3 = st.columns(3)
 
-        # RESUME BUTTON
-
         with col_btn1:
 
             with open("assets/Resume_Kartik.pdf", "rb") as pdf_file:
@@ -359,8 +382,6 @@ if selected == "Home":
                 use_container_width=True
             )
 
-        # LINKEDIN BUTTON
-
         with col_btn2:
 
             st.link_button(
@@ -368,9 +389,6 @@ if selected == "Home":
                 "https://www.linkedin.com/",
                 use_container_width=True
             )
-
-          
-        # GITHUB BUTTON
 
         with col_btn3:
 
@@ -380,39 +398,40 @@ if selected == "Home":
                 use_container_width=True
             )
 
-            
     st.write("---")
 
-    # METRICS
+    # CLICKABLE METRIC CARDS
 
     st.subheader("📊 Dashboard Metrics")
 
     col1, col2, col3, col4 = st.columns(4)
 
-    metrics = [
-        ("15+", "Projects"),
-        ("300+", "DSA Problems"),
-        ("5+", "Certifications"),
-        ("2", "Internships")
-    ]
+    with col1:
+        if st.button("15+\nProjects", key="projects_card", use_container_width=True):
+            st.session_state.page = "Projects"
+            st.rerun()
 
-    for col, (value, label) in zip(
-        [col1, col2, col3, col4],
-        metrics
-    ):
+    with col2:
+        st.markdown("""
+        <div class="metric-card">
+            <h1>300+</h1>
+            <p>DSA Problems</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-        with col:
+    with col3:
+        if st.button("5+\nCertifications", key="skills_card", use_container_width=True):
+            st.session_state.page = "Skills"
+            st.rerun()
 
-            st.markdown(f"""
-            <div class="metric-card">
-                <h1>{value}</h1>
-                <p>{label}</p>
-            </div>
-            """, unsafe_allow_html=True)
+    with col4:
+        if st.button("2\nInternships", key="contact_card", use_container_width=True):
+            st.session_state.page = "Contact"
+            st.rerun()
 
     st.write("---")
 
-    # ABOUT SECTION
+    # ABOUT
 
     st.subheader("🚀 About Me")
 
@@ -436,7 +455,7 @@ if selected == "Home":
 
     st.write("---")
 
-    # ANALYTICS CHART
+    # ANALYTICS OVERVIEW
 
     st.subheader("📈 Analytics Overview")
 
@@ -476,6 +495,7 @@ if selected == "Home":
         analytics_fig,
         use_container_width=True
     )
+
 # ---------------------------------------------------
 # PROJECTS
 # ---------------------------------------------------
@@ -484,121 +504,76 @@ elif selected == "Projects":
 
     st.title("🚀 Featured Projects")
 
-    # PROJECT 1
+    # FILTER
 
-    st.markdown("""
-    <div class="project-card">
-
-        <h3>📈 ESG Greenwashing Analyzer</h3>
-
-        <p>
-        AI-powered system for analyzing ESG reports and detecting
-        potential greenwashing patterns using NLP and sentiment analysis.
-        </p>
-
-        <p>
-        <b>Tech Stack:</b>
-        Python, NLP, Streamlit, FinBERT
-        </p>
-
-    </div>
-    """, unsafe_allow_html=True)
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-
-        st.link_button(
-            "🔗 GitHub Repo",
-            "https://github.com/"
-        )
-
-    with col2:
-
-        st.link_button(
-            "🌐 Live Demo",
-            "https://streamlit.io/"
-        )
-
-    st.write("")
-
-    # PROJECT 2
-
-    st.markdown("""
-    <div class="project-card">
-
-        <h3>🏦 Bank Customer Retention Agent</h3>
-
-        <p>
-        Intelligent ML system that predicts customer churn
-        and recommends personalized retention strategies.
-        </p>
-
-        <p>
-        <b>Tech Stack:</b>
-        Python, Scikit-learn, Pandas, Power BI
-        </p>
-
-    </div>
-    """, unsafe_allow_html=True)
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-
-        st.link_button(
-            "🔗 GitHub Repo",
-            "https://github.com/"
-        )
-
-    with col2:
-
-        st.link_button(
-            "🌐 Live Demo",
-            "https://streamlit.io/"
-        )
-
-    st.write("---")
-
-    # PROJECT DISTRIBUTION
-
-    st.subheader("📊 Project Distribution")
-
-    project_df = pd.DataFrame({
-
-        "Category": [
+    project_filter = st.selectbox(
+        "Filter Projects",
+        [
+            "All",
             "Machine Learning",
             "Analytics",
-            "Visualization",
-            "Consulting",
             "AI Applications"
-        ],
-
-        "Projects": [
-            4,
-            3,
-            2,
-            2,
-            3
         ]
-    })
-
-    pie_fig = px.pie(
-        project_df,
-        names="Category",
-        values="Projects",
-        hole=0.5
     )
 
-    pie_fig.update_layout(
-        paper_bgcolor="#0B0F19",
-        font_color="white"
-    )
+    projects = [
+        {
+            "title": "📈 ESG Greenwashing Analyzer",
+            "category": "AI Applications",
+            "description": "AI-powered system for analyzing ESG reports and detecting potential greenwashing patterns using NLP and sentiment analysis.",
+            "tech": "Python, NLP, Streamlit, FinBERT"
+        },
 
-    st.plotly_chart(
-        pie_fig,
-        use_container_width=True
-    )
+        {
+            "title": "🏦 Bank Customer Retention Agent",
+            "category": "Machine Learning",
+            "description": "Intelligent ML system that predicts customer churn and recommends personalized retention strategies.",
+            "tech": "Python, Scikit-learn, Pandas, Power BI"
+        },
+
+        {
+            "title": "📊 Stock Trend Prediction Dashboard",
+            "category": "Analytics",
+            "description": "Interactive dashboard for stock market trend analysis and prediction.",
+            "tech": "Streamlit, Prophet, Plotly"
+        }
+    ]
+
+    for project in projects:
+
+        if project_filter == "All" or project["category"] == project_filter:
+
+            st.markdown(f"""
+            <div class="project-card">
+
+                <h3>{project['title']}</h3>
+
+                <p>{project['description']}</p>
+
+                <p>
+                <b>Tech Stack:</b> {project['tech']}
+                </p>
+
+            </div>
+            """, unsafe_allow_html=True)
+
+            col1, col2 = st.columns(2)
+
+            with col1:
+                st.link_button(
+                    "🔗 GitHub Repo",
+                    "https://github.com/",
+                    use_container_width=True
+                )
+
+            with col2:
+                st.link_button(
+                    "🌐 Live Demo",
+                    "https://streamlit.io/",
+                    use_container_width=True
+                )
+
+            st.write("")
 
 # ---------------------------------------------------
 # SKILLS
@@ -633,8 +608,6 @@ elif selected == "Skills":
         ]
     })
 
-    # BAR CHART
-
     skill_fig = px.bar(
         skills_df,
         x="Skill",
@@ -655,8 +628,6 @@ elif selected == "Skills":
     )
 
     st.write("---")
-
-    # RADAR CHART
 
     radar_fig = px.line_polar(
         skills_df,
@@ -689,12 +660,14 @@ elif selected == "Contact":
 
     st.link_button(
         "🔗 LinkedIn",
-        "https://www.linkedin.com/"
+        "https://www.linkedin.com/",
+        use_container_width=True
     )
 
     st.link_button(
         "💻 GitHub",
-        "https://github.com/"
+        "https://github.com/",
+        use_container_width=True
     )
 
     st.write("📧 Email: kartiksanjay.k24@iiits.in")
