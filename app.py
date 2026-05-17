@@ -307,85 +307,83 @@ if selected == "Home":
 
         # BUTTONS
 
-        # BUTTONS
+        col_btn1, col_btn2, col_btn3 = st.columns(3)
 
-col_btn1, col_btn2, col_btn3 = st.columns(3)
+        # RESUME BUTTON
 
-# RESUME BUTTON
+        with col_btn1:
 
-with col_btn1:
+            with open("assets/Resume_Kartik.pdf", "rb") as pdf_file:
+                PDFbyte = pdf_file.read()
 
-    with open("assets/Resume_Kartik.pdf", "rb") as pdf_file:
-        PDFbyte = pdf_file.read()
+            st.download_button(
+                label="📄 Resume",
+                data=PDFbyte,
+                file_name="Resume_Kartik.pdf",
+                mime="application/octet-stream"
+            )
 
-    st.download_button(
-        label="📄 Resume",
-        data=PDFbyte,
-        file_name="Resume_Kartik.pdf",
-        mime="application/octet-stream"
-    )
+        # LINKEDIN BUTTON
 
-# LINKEDIN BUTTON
+        with col_btn2:
 
-with col_btn2:
+            st.markdown("""
+            <a href="https://www.linkedin.com/"
+            target="_blank">
 
-    st.markdown("""
-    <a href="https://www.linkedin.com/"
-    target="_blank">
+            <button style="
+                width:100%;
+                height:3.2em;
+                border:none;
+                border-radius:14px;
 
-    <button style="
-        width:100%;
-        height:3.2em;
-        border:none;
-        border-radius:14px;
+                background: linear-gradient(
+                    90deg,
+                    #2563EB,
+                    #7C3AED
+                );
 
-        background: linear-gradient(
-            90deg,
-            #2563EB,
-            #7C3AED
-        );
+                color:white;
+                font-size:16px;
+                font-weight:600;
+                cursor:pointer;
+            ">
+            🔗 LinkedIn
+            </button>
 
-        color:white;
-        font-size:16px;
-        font-weight:600;
-        cursor:pointer;
-    ">
-    🔗 LinkedIn
-    </button>
+            </a>
+            """, unsafe_allow_html=True)
 
-    </a>
-    """, unsafe_allow_html=True)
+        # GITHUB BUTTON
 
-# GITHUB BUTTON
+        with col_btn3:
 
-with col_btn3:
+            st.markdown("""
+            <a href="https://github.com/"
+            target="_blank">
 
-    st.markdown("""
-    <a href="https://github.com/"
-    target="_blank">
+            <button style="
+                width:100%;
+                height:3.2em;
+                border:none;
+                border-radius:14px;
 
-    <button style="
-        width:100%;
-        height:3.2em;
-        border:none;
-        border-radius:14px;
+                background: linear-gradient(
+                    90deg,
+                    #2563EB,
+                    #7C3AED
+                );
 
-        background: linear-gradient(
-            90deg,
-            #2563EB,
-            #7C3AED
-        );
+                color:white;
+                font-size:16px;
+                font-weight:600;
+                cursor:pointer;
+            ">
+            💻 GitHub
+            </button>
 
-        color:white;
-        font-size:16px;
-        font-weight:600;
-        cursor:pointer;
-    ">
-    💻 GitHub
-    </button>
-
-    </a>
-    """, unsafe_allow_html=True)
+            </a>
+            """, unsafe_allow_html=True)
 
     st.write("---")
 
@@ -482,7 +480,6 @@ with col_btn3:
         analytics_fig,
         use_container_width=True
     )
-
 # ---------------------------------------------------
 # PROJECTS
 # ---------------------------------------------------
