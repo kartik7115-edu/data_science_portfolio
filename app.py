@@ -321,70 +321,31 @@ if selected == "Home":
                 data=PDFbyte,
                 file_name="Resume_Kartik.pdf",
                 mime="application/octet-stream"
+                use_container_width=True
             )
 
         # LINKEDIN BUTTON
 
         with col_btn2:
 
-            st.markdown("""
-            <a href="https://www.linkedin.com/"
-            target="_blank">
+            st.link_button(
+                "🔗 LinkedIn",
+                "https://www.linkedin.com/",
+                use_container_width=True
+            )
 
-            <button style="
-                width:100%;
-                height:3.2em;
-                border:none;
-                border-radius:14px;
-
-                background: linear-gradient(
-                    90deg,
-                    #2563EB,
-                    #7C3AED
-                );
-
-                color:white;
-                font-size:16px;
-                font-weight:600;
-                cursor:pointer;
-            ">
-            🔗 LinkedIn
-            </button>
-
-            </a>
-            """, unsafe_allow_html=True)
-
+          
         # GITHUB BUTTON
 
         with col_btn3:
 
-            st.markdown("""
-            <a href="https://github.com/"
-            target="_blank">
+            st.link_button(
+                "💻 GitHub",
+                "https://github.com/",
+                use_container_width=True
+            )
 
-            <button style="
-                width:100%;
-                height:3.2em;
-                border:none;
-                border-radius:14px;
-
-                background: linear-gradient(
-                    90deg,
-                    #2563EB,
-                    #7C3AED
-                );
-
-                color:white;
-                font-size:16px;
-                font-weight:600;
-                cursor:pointer;
-            ">
-            💻 GitHub
-            </button>
-
-            </a>
-            """, unsafe_allow_html=True)
-
+            
     st.write("---")
 
     # METRICS
