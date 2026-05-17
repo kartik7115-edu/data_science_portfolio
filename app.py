@@ -320,7 +320,7 @@ if selected == "Home":
                 label="📄 Resume",
                 data=PDFbyte,
                 file_name="Resume_Kartik.pdf",
-                mime="application/octet-stream"
+                mime="application/octet-stream",
                 use_container_width=True
             )
 
