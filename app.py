@@ -325,7 +325,7 @@ if selected == "Home":
 
             st.link_button(
                 "🔗 LinkedIn",
-                "https://www.linkedin.com/"
+                "www.linkedin.com/in/kartik-kumthe-a34bb8306"
             )
 
     st.write("---")
