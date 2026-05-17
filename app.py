@@ -215,6 +215,41 @@ a {
     backdrop-filter: blur(12px);
 }
 
+div[data-testid="stLinkButton"] a {
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 14px;
+
+    height: 3.2em;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    border: none;
+
+    background: linear-gradient(
+        90deg,
+        #2563EB,
+        #7C3AED
+    );
+
+    color: white !important;
+
+    text-decoration: none !important;
+
+    transition: 0.3s;
+}
+
+div[data-testid="stLinkButton"] a:hover {
+    transform: scale(1.03);
+
+    box-shadow:
+        0 8px 25px rgba(59,130,246,0.4);
+}
+
 </style>
 """, unsafe_allow_html=True)
 
